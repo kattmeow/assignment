@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+    volumes:
+      - jenkins_data:/var/jenkins_home
+    networks:
+      - jenkins_argocd_network
+    restart: always
+
+  argocd-server:
+    image: argoproj/argocd:v2.1.1
+    container_name: argocd-server
+    ports:
+      - "8081:8080"
+    command: ["argocd", "server", "--insecure"]
+    networks:
+      - jenkins_argocd_network
+    restart: always
+
+networks:
+  jenkins_argocd_network:
+
+volumes:
+  jenkins_data:
