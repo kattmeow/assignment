@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        ECR_REPO_URL = $ECR_REPO_URL
-        AWS_REGION = $AWS_REGION
-        ECR_CREDENTIALS = $aws_creds
+        ECR_REPO_URL = "public.ecr.aws/w8c6h7o9/assessment"
+        AWS_REGION = "us-east-1"
+        ECR_CREDENTIALS = "aws_creds"
         IMAGE_NAME = 'assessment'
     }
 
