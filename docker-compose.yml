@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_data:/var/jenkins_home
+    networks:
+      - jenkins_argocd_network
+
+  argocd-server:
+    image: argoproj/argocd:latest
+    container_name: argocd-server
+    ports:
+      - "80:8080"
+      - "443:443"
+    command: ["argocd-server"]
+    env_file:
+      - argocd.env
+    networks:
+      - jenkins_argocd_network
+
+networks:
+  jenkins_argocd_network:
+
+volumes:
+  jenkins_data:
